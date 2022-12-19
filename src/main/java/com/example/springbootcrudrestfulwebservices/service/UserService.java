@@ -42,9 +42,13 @@ public class UserService {
         return userRepository.save(existingUser);
     }
 
-    public ResponseEntity<User> deleteUserById(long id) {
-
+    public ResponseEntity<User> deleteUserById(long id) throws Exception{
+        boolean isExistUser = userRepository.findById(user.getId()).isPresent();
+        if(!(isExistUser)){
+            throw new Exception();
+        }
         userRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok.build();
+        
     }
 }
