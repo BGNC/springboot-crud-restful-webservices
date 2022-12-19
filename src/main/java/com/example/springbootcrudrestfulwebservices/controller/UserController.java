@@ -27,21 +27,21 @@ public class UserController {
         return userService.getUserById(id);
     }
     //create user
-    @PostMapping
+    @PostMapping("/saveUser")
     public User createUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
     //update user
 
-    @PutMapping("/{id}")
+    @PutMapping("/updateUser/{id}")
     public User updateUser(@RequestBody User user, @PathVariable(value = "id") long id ) {
         return userService.updateUser(user,id);
     }
 
     //delete user by id
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteUserById/{id}")
     public ResponseEntity<User> deleteUserById(@PathVariable(value = "id") long id) {
         return userService.deleteUserById(id);
     }
