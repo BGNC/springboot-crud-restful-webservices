@@ -43,7 +43,10 @@ public class UserService {
     }
 
     public ResponseEntity<User> deleteUserById(long id) {
-
+        boolean userExist = userRepository.existsById(id);
+        if(!userExist) {
+            throw new ResourceNotFoundException("There is no such an item you want to delete!");
+        }
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
