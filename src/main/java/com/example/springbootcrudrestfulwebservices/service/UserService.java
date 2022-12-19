@@ -24,6 +24,9 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        if(userRepository.existById(user.getId)){
+            throw new Exception();
+        }
         return userRepository.save(user);
     }
 
@@ -38,7 +41,9 @@ public class UserService {
 
     public ResponseEntity<User> deleteUserById(long id) {
 
-        userRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        if(userRepository.existById(id)){
+            userRepository.deleteUserById(id);
+            return ResponseEntity.ok.build();
+        }
     }
 }
