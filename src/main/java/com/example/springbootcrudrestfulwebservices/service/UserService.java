@@ -2,6 +2,7 @@ package com.example.springbootcrudrestfulwebservices.service;
 
 import com.example.springbootcrudrestfulwebservices.entity.User;
 import com.example.springbootcrudrestfulwebservices.exception.ResourceNotFoundException;
+import com.example.springbootcrudrestfulwebservices.exception.UserAlreadyAdded;
 import com.example.springbootcrudrestfulwebservices.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class UserService {
 
     public User saveUser(User user) {
        // You need to check if there is a user belonging to such an id before, if there is the same user, do not add such an id.
+        boolean isExistUser = userRepository.findById(user.getId()).isPresent();
+        if(isExistUser) {
+            throw new UserAlreadyAdded("This user is already exist!");
+        }
+        return userRepository.save(user);
     }
 
     public User updateUser(User user, long id) {
